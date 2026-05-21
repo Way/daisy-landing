@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <!-- Background base -->
+    <radialGradient id="bgGlow" cx="32%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#ff8a5b" stop-opacity="0.22"/>
+      <stop offset="45%" stop-color="#ff8a5b" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#0f0d10" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Orb body: lavender bottom + coral->deep coral fill, like OrbView -->
+    <radialGradient id="orbLav" cx="50%" cy="85%" r="55%">
+      <stop offset="0%" stop-color="#c89cff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#c89cff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orbCoral" cx="35%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#fff6ec" stop-opacity="0.92"/>
+      <stop offset="22%" stop-color="#ff8a5b" stop-opacity="0.92"/>
+      <stop offset="52%" stop-color="#ff8a5b"/>
+      <stop offset="100%" stop-color="#b8492a"/>
+    </radialGradient>
+
+    <!-- Ambient around orb -->
+    <radialGradient id="orbAmbient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff8a5b" stop-opacity="0.55"/>
+      <stop offset="32%" stop-color="#ff8a5b" stop-opacity="0.22"/>
+      <stop offset="62%" stop-color="#ff8a5b" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Specular highlight -->
+    <radialGradient id="orbHi" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Vignette -->
+    <radialGradient id="vignette" cx="50%" cy="50%" r="75%">
+      <stop offset="60%" stop-color="#0f0d10" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.45"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0f0d10"/>
+  <rect width="1200" height="630" fill="url(#bgGlow)"/>
+
+  <!-- Orb cluster, left -->
+  <g transform="translate(310,315)">
+    <circle cx="0" cy="0" r="290" fill="url(#orbAmbient)"/>
+    <circle cx="0" cy="0" r="195" fill="url(#orbCoral)"/>
+    <circle cx="0" cy="0" r="195" fill="url(#orbLav)"/>
+    <!-- specular -->
+    <ellipse cx="-55" cy="-72" rx="42" ry="22" fill="url(#orbHi)"/>
+    <!-- thin rim -->
+    <circle cx="0" cy="0" r="195" fill="none" stroke="#fff6ec" stroke-opacity="0.08" stroke-width="1.5"/>
+  </g>
+
+  <!-- Wordmark + tagline, right -->
+  <g transform="translate(595,210)">
+    <text
+      x="0" y="0"
+      font-family="Instrument Serif, Georgia, serif"
+      font-style="italic"
+      font-size="128"
+      fill="#fff6ec"
+      letter-spacing="-2">
+      Daisy.
+    </text>
+    <text
+      x="0" y="100"
+      font-family="Instrument Serif, Georgia, serif"
+      font-style="italic"
+      font-size="58"
+      fill="#fff6ec"
+      letter-spacing="-1">
+      The thoughts you
+    </text>
+    <text
+      x="0" y="170"
+      font-family="Instrument Serif, Georgia, serif"
+      font-style="italic"
+      font-size="58"
+      fill="#ff8a5b"
+      letter-spacing="-1">
+      almost lost.
+    </text>
+
+    <!-- Sub-tagline -->
+    <text
+      x="0" y="240"
+      font-family="Geist, -apple-system, system-ui, sans-serif"
+      font-size="22"
+      fill="#a39a98"
+      letter-spacing="0.2">
+      Voice-first second brain for iPhone.
+    </text>
+    <text
+      x="0" y="272"
+      font-family="Geist, -apple-system, system-ui, sans-serif"
+      font-size="22"
+      fill="#a39a98"
+      letter-spacing="0.2">
+      One button. Say anything. Daisy remembers.
+    </text>
+
+    <!-- Eyebrow / domain -->
+    <text
+      x="0" y="350"
+      font-family="JetBrains Mono, ui-monospace, monospace"
+      font-size="14"
+      fill="#6a6166"
+      letter-spacing="3">
+      DAISY.ALEXVEY.COM  ·  TESTFLIGHT SOON
+    </text>
+  </g>
+
+  <!-- Subtle vignette on top -->
+  <rect width="1200" height="630" fill="url(#vignette)"/>
+</svg>

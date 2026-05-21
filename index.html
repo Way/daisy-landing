@@ -3,14 +3,114 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>Daisy. The thoughts you almost lost.</title>
-<meta name="description" content="Daisy is a voice-first second brain for iPhone. One button. Say anything. Daisy remembers who, where, when, and what it was about, so you can find anything by any thread." />
-<meta name="theme-color" content="#0f0d10" />
 
+<title>Daisy — The thoughts you almost lost. Voice-first second brain for iPhone.</title>
+<meta name="description" content="Daisy is a voice-first second brain for iPhone. One button. Say anything. Daisy remembers who, where, when, and what it was about, so you can find any thought by any thread." />
+<meta name="keywords" content="second brain, voice notes, iPhone app, voice-first, note-taking, personal knowledge graph, voice memo, on-device AI, private notes, thought capture, knowledge management, TestFlight, Apple Intelligence" />
+<meta name="author" content="Alex Vey" />
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+<meta name="googlebot" content="index,follow" />
+<link rel="canonical" href="https://daisy.alexvey.com/" />
+
+<!-- Theme + color scheme -->
+<meta name="color-scheme" content="dark light" />
+<meta name="theme-color" content="#0f0d10" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#fff6ec" media="(prefers-color-scheme: light)" />
+<meta name="format-detection" content="telephone=no" />
+
+<!-- Icons -->
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+
+<!-- iOS web app -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Daisy" />
+<meta name="application-name" content="Daisy" />
+
+<!-- Open Graph -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Daisy. The thoughts you almost lost." />
-<meta property="og:description" content="A voice-first second brain for iPhone. One button. Say anything. Daisy remembers." />
-<meta property="og:url" content="https://daisy.alexvey.com" />
+<meta property="og:site_name" content="Daisy" />
+<meta property="og:title" content="Daisy — The thoughts you almost lost." />
+<meta property="og:description" content="A voice-first second brain for iPhone. One button. Say anything. Daisy remembers who, where, when, and what it was about — find any thought by any thread." />
+<meta property="og:url" content="https://daisy.alexvey.com/" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:image" content="https://daisy.alexvey.com/og-image.png" />
+<meta property="og:image:secure_url" content="https://daisy.alexvey.com/og-image.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Daisy. The thoughts you almost lost. A glowing coral orb beside the wordmark on a dark background." />
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Daisy — The thoughts you almost lost." />
+<meta name="twitter:description" content="Voice-first second brain for iPhone. One button. Say anything. Daisy remembers." />
+<meta name="twitter:image" content="https://daisy.alexvey.com/og-image.png" />
+<meta name="twitter:image:alt" content="Daisy. The thoughts you almost lost. A glowing coral orb beside the wordmark on a dark background." />
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://daisy.alexvey.com/#website",
+      "url": "https://daisy.alexvey.com/",
+      "name": "Daisy",
+      "description": "Voice-first second brain for iPhone. One button. Say anything. Daisy remembers.",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://daisy.alexvey.com/#person" }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://daisy.alexvey.com/#person",
+      "name": "Alex Vey",
+      "url": "https://alexvey.com",
+      "sameAs": ["https://alexvey.com"]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://daisy.alexvey.com/#app",
+      "name": "Daisy",
+      "alternateName": "Daisy — voice-first second brain",
+      "description": "Voice-first second brain for iPhone. Hold one button, say anything. Daisy classifies, tags entities (who, where, when, topic) and lets you search any thought by any thread. On-device by default.",
+      "applicationCategory": "ProductivityApplication",
+      "applicationSubCategory": "Note-taking",
+      "operatingSystem": "iOS",
+      "url": "https://daisy.alexvey.com/",
+      "image": "https://daisy.alexvey.com/og-image.png",
+      "screenshot": "https://daisy.alexvey.com/og-image.png",
+      "softwareVersion": "TestFlight (beta)",
+      "releaseNotes": "First TestFlight build, summer 2026.",
+      "author": { "@id": "https://daisy.alexvey.com/#person" },
+      "publisher": { "@id": "https://daisy.alexvey.com/#person" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/PreOrder",
+        "url": "https://daisy.alexvey.com/#waitlist"
+      },
+      "featureList": [
+        "One-button voice capture",
+        "On-device speech, classification, and search",
+        "Automatic entity graph: who, where, when, topic",
+        "Time, place, and context reminders",
+        "Search by any thread, find every related thought",
+        "Private by default — no servers, no telemetry"
+      ]
+    }
+  ]
+}
+</script>
+
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
