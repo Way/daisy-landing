@@ -73,46 +73,99 @@
     padding: 120px 24px 96px;
   }
 
+  /* ---------- ORB (thinking state, ported from App/Features/Orb/OrbView.swift) ---------- */
   .orb-wrap {
+    --orb-size: 200px;
     position: relative;
-    width: 180px;
-    height: 180px;
+    width: var(--orb-size);
+    height: var(--orb-size);
     margin-bottom: 56px;
   }
-  .orb {
+  .orb-ambient {
+    position: absolute;
+    top: -15%; left: -15%;
+    width: 130%; height: 130%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%,
+      rgba(255, 138, 91, 0.48) 0%,
+      rgba(255, 138, 91, 0.22) 32%,
+      transparent 62%);
+    filter: blur(calc(var(--orb-size) * 0.05));
+    animation: orb-ambient-breath 5.71s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .orb-body {
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, #fff1d8 0%, var(--coral) 38%, var(--coral-deep) 88%);
+    background:
+      radial-gradient(circle at 50% 85%,
+        rgba(200, 156, 255, 0.6) 0%,
+        rgba(200, 156, 255, 0) 45%),
+      radial-gradient(circle at 35% 30%,
+        rgba(255, 246, 236, 0.92) 0%,
+        rgba(255, 138, 91, 0.92) 22%,
+        #ff8a5b 52%,
+        #b8492a 100%);
+    background-blend-mode: soft-light, normal;
     box-shadow:
       0 0 0 1px rgba(255, 246, 236, 0.06),
-      0 0 60px rgba(255, 138, 91, 0.45),
-      0 0 140px rgba(255, 138, 91, 0.18),
-      inset 0 -18px 38px rgba(184, 73, 42, 0.55);
-    animation: breathe 5.6s ease-in-out infinite;
+      0 0 60px rgba(255, 138, 91, 0.28),
+      inset 0 -10% 22% rgba(184, 73, 42, 0.5);
+    animation: orb-body-breath 4.49s ease-in-out infinite;
+    z-index: 1;
+    overflow: hidden;
   }
-  .orb::after {
+  .orb-body::after {
+    /* specular highlight — soft, restrained */
     content: "";
     position: absolute;
-    inset: 14%;
+    width: 28%;
+    height: 17%;
+    top: 19.5%;
+    left: 16%;
+    background: rgba(255, 255, 255, 0.22);
     border-radius: 50%;
-    background: radial-gradient(circle at 32% 30%, rgba(255, 246, 236, 0.55), transparent 55%);
-    filter: blur(2px);
+    filter: blur(calc(var(--orb-size) * 0.035));
+    pointer-events: none;
   }
-  .orb-ring {
+  .orb-dots {
     position: absolute;
-    inset: -16px;
+    inset: 0;
+    z-index: 2;
+    animation: orb-dots-spin 3.14s linear infinite;
+    pointer-events: none;
+  }
+  .orb-arm {
+    position: absolute;
+    inset: 0;
+    transform: rotate(calc(var(--i) * 120deg));
+  }
+  .orb-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(var(--orb-size) * 0.045);
+    height: calc(var(--orb-size) * 0.045);
+    margin-top: calc(var(--orb-size) * -0.0225);
+    margin-left: calc(var(--orb-size) * -0.0225);
     border-radius: 50%;
-    border: 1px solid rgba(255, 138, 91, 0.12);
-    animation: pulse-ring 5.6s ease-in-out infinite;
+    background: rgba(255, 246, 236, 0.94);
+    box-shadow: 0 0 calc(var(--orb-size) * 0.045) rgba(255, 246, 236, 0.55);
+    transform: translateY(calc(var(--orb-size) * -0.11));
   }
-  @keyframes breathe {
+
+  @keyframes orb-ambient-breath {
+    0%, 100% { transform: scale(1); opacity: 0.92; }
+    50% { transform: scale(1.05); opacity: 1; }
+  }
+  @keyframes orb-body-breath {
     0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.045); box-shadow: 0 0 0 1px rgba(255, 246, 236, 0.08), 0 0 80px rgba(255, 138, 91, 0.55), 0 0 180px rgba(255, 138, 91, 0.22), inset 0 -22px 42px rgba(184, 73, 42, 0.62); }
+    50% { transform: scale(1.02); }
   }
-  @keyframes pulse-ring {
-    0%, 100% { transform: scale(1); opacity: 0.7; }
-    50% { transform: scale(1.12); opacity: 0.25; }
+  @keyframes orb-dots-spin {
+    to { transform: rotate(360deg); }
   }
 
   h1.headline {
@@ -398,7 +451,7 @@
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 560px) {
     .hero { padding: 88px 24px 72px; }
-    .orb-wrap { width: 140px; height: 140px; margin-bottom: 44px; }
+    .orb-wrap { --orb-size: 160px; margin-bottom: 44px; }
     section.s { padding: 64px 0; }
     .contrast .row { grid-template-columns: 1fr; gap: 12px; }
     .privacy-strip { grid-template-columns: 1fr; }
@@ -406,7 +459,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .orb, .orb-ring { animation: none; }
+    .orb-ambient, .orb-body, .orb-dots { animation: none; }
   }
 </style>
 </head>
@@ -414,8 +467,13 @@
 
 <section class="hero">
   <div class="orb-wrap" aria-hidden="true">
-    <div class="orb-ring"></div>
-    <div class="orb"></div>
+    <div class="orb-ambient"></div>
+    <div class="orb-body"></div>
+    <div class="orb-dots">
+      <div class="orb-arm" style="--i:0"><div class="orb-dot"></div></div>
+      <div class="orb-arm" style="--i:1"><div class="orb-dot"></div></div>
+      <div class="orb-arm" style="--i:2"><div class="orb-dot"></div></div>
+    </div>
   </div>
 
   <h1 class="headline">
