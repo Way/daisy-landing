@@ -73,13 +73,13 @@
     padding: 120px 24px 96px;
   }
 
-  /* ---------- ORB (thinking state, ported from App/Features/Orb/OrbView.swift) ---------- */
+  /* ---------- ORB (speaking state, ported from App/Features/Orb/OrbView.swift) ---------- */
   .orb-wrap {
-    --orb-size: 200px;
+    --orb-size: 220px;
     position: relative;
     width: var(--orb-size);
     height: var(--orb-size);
-    margin-bottom: 56px;
+    margin-bottom: 64px;
   }
   .orb-ambient {
     position: absolute;
@@ -87,7 +87,7 @@
     width: 130%; height: 130%;
     border-radius: 50%;
     background: radial-gradient(circle at 50% 50%,
-      rgba(255, 138, 91, 0.48) 0%,
+      rgba(255, 138, 91, 0.55) 0%,
       rgba(255, 138, 91, 0.22) 32%,
       transparent 62%);
     filter: blur(calc(var(--orb-size) * 0.05));
@@ -95,6 +95,23 @@
     pointer-events: none;
     z-index: 0;
   }
+  .orb-rings {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .orb-ring {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: 1.5px solid rgba(255, 138, 91, 0.4);
+    border-radius: 50%;
+    opacity: 0;
+    animation: orb-ring-pulse 1.2s linear infinite;
+  }
+  .orb-ring:nth-child(2) { animation-delay: 0.4s; }
+  .orb-ring:nth-child(3) { animation-delay: 0.8s; }
   .orb-body {
     position: absolute;
     inset: 0;
@@ -111,9 +128,9 @@
     background-blend-mode: soft-light, normal;
     box-shadow:
       0 0 0 1px rgba(255, 246, 236, 0.06),
-      0 0 60px rgba(255, 138, 91, 0.28),
+      0 0 60px rgba(255, 138, 91, 0.32),
       inset 0 -10% 22% rgba(184, 73, 42, 0.5);
-    animation: orb-body-breath 4.49s ease-in-out infinite;
+    animation: orb-body-speak 0.785s ease-in-out infinite;
     z-index: 1;
     overflow: hidden;
   }
@@ -130,42 +147,47 @@
     filter: blur(calc(var(--orb-size) * 0.035));
     pointer-events: none;
   }
-  .orb-dots {
+  .orb-bars {
     position: absolute;
     inset: 0;
     z-index: 2;
-    animation: orb-dots-spin 3.14s linear infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--orb-size) * 0.02);
     pointer-events: none;
   }
-  .orb-arm {
-    position: absolute;
-    inset: 0;
-    transform: rotate(calc(var(--i) * 120deg));
+  .orb-bar {
+    width: calc(var(--orb-size) * 0.025);
+    height: calc(var(--orb-size) * 0.06);
+    background: rgba(255, 246, 236, 0.92);
+    border-radius: calc(var(--orb-size) * 0.0125);
+    animation: orb-bar-pulse 0.45s ease-in-out infinite;
+    box-shadow: 0 0 calc(var(--orb-size) * 0.02) rgba(255, 246, 236, 0.35);
   }
-  .orb-dot {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: calc(var(--orb-size) * 0.045);
-    height: calc(var(--orb-size) * 0.045);
-    margin-top: calc(var(--orb-size) * -0.0225);
-    margin-left: calc(var(--orb-size) * -0.0225);
-    border-radius: 50%;
-    background: rgba(255, 246, 236, 0.94);
-    box-shadow: 0 0 calc(var(--orb-size) * 0.045) rgba(255, 246, 236, 0.55);
-    transform: translateY(calc(var(--orb-size) * -0.11));
-  }
+  .orb-bar:nth-child(1) { animation-delay: 0s; }
+  .orb-bar:nth-child(2) { animation-delay: -0.06s; }
+  .orb-bar:nth-child(3) { animation-delay: -0.13s; }
+  .orb-bar:nth-child(4) { animation-delay: -0.20s; }
+  .orb-bar:nth-child(5) { animation-delay: -0.27s; }
+  .orb-bar:nth-child(6) { animation-delay: -0.34s; }
+  .orb-bar:nth-child(7) { animation-delay: -0.40s; }
 
   @keyframes orb-ambient-breath {
     0%, 100% { transform: scale(1); opacity: 0.92; }
     50% { transform: scale(1.05); opacity: 1; }
   }
-  @keyframes orb-body-breath {
+  @keyframes orb-body-speak {
     0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.02); }
+    50% { transform: scale(1.04); }
   }
-  @keyframes orb-dots-spin {
-    to { transform: rotate(360deg); }
+  @keyframes orb-ring-pulse {
+    0%   { transform: scale(1);   opacity: 0.4;  }
+    100% { transform: scale(1.6); opacity: 0;    }
+  }
+  @keyframes orb-bar-pulse {
+    0%, 100% { height: calc(var(--orb-size) * 0.047); }
+    50%      { height: calc(var(--orb-size) * 0.176); }
   }
 
   h1.headline {
@@ -451,7 +473,7 @@
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 560px) {
     .hero { padding: 88px 24px 72px; }
-    .orb-wrap { --orb-size: 160px; margin-bottom: 44px; }
+    .orb-wrap { --orb-size: 170px; margin-bottom: 44px; }
     section.s { padding: 64px 0; }
     .contrast .row { grid-template-columns: 1fr; gap: 12px; }
     .privacy-strip { grid-template-columns: 1fr; }
@@ -459,7 +481,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .orb-ambient, .orb-body, .orb-dots { animation: none; }
+    .orb-ambient, .orb-body, .orb-ring, .orb-bar { animation: none; }
   }
 </style>
 </head>
@@ -468,11 +490,20 @@
 <section class="hero">
   <div class="orb-wrap" aria-hidden="true">
     <div class="orb-ambient"></div>
+    <div class="orb-rings">
+      <div class="orb-ring"></div>
+      <div class="orb-ring"></div>
+      <div class="orb-ring"></div>
+    </div>
     <div class="orb-body"></div>
-    <div class="orb-dots">
-      <div class="orb-arm" style="--i:0"><div class="orb-dot"></div></div>
-      <div class="orb-arm" style="--i:1"><div class="orb-dot"></div></div>
-      <div class="orb-arm" style="--i:2"><div class="orb-dot"></div></div>
+    <div class="orb-bars">
+      <span class="orb-bar"></span>
+      <span class="orb-bar"></span>
+      <span class="orb-bar"></span>
+      <span class="orb-bar"></span>
+      <span class="orb-bar"></span>
+      <span class="orb-bar"></span>
+      <span class="orb-bar"></span>
     </div>
   </div>
 
