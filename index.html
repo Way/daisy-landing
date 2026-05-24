@@ -532,10 +532,17 @@
   form.signup button:hover { transform: translateY(-1px); box-shadow: 0 12px 32px rgba(255, 138, 91, 0.42); }
   .form-fine {
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 10px;
     color: var(--ink-dim);
-    margin: 14px 0 0;
-    letter-spacing: 0.04em;
+    margin: 12px 0 0;
+    letter-spacing: 0.06em;
+    opacity: 0.75;
+    text-transform: uppercase;
+  }
+  .form-fine .dot {
+    display: inline-block;
+    margin: 0 0.5em;
+    opacity: 0.5;
   }
 
   /* ---------- PRIVACY STRIP ---------- */
@@ -776,7 +783,7 @@
         <input type="hidden" name="_subject" value="Daisy waitlist signup" />
         <button type="submit">Join the waitlist</button>
       </form>
-      <p class="form-fine">No spam. One email when TestFlight opens.<br />Unsubscribe with a reply.</p>
+      <p class="form-fine">No spam<span class="dot">·</span>One email when TestFlight opens<span class="dot">·</span>Unsubscribe with a reply</p>
     </div>
   </section>
 
