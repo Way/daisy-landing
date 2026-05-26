@@ -549,26 +549,76 @@
     opacity: 0.7;
   }
 
-  /* ---------- PRIVACY STRIP ---------- */
-  .privacy-strip {
-    margin-top: 28px;
+  /* ---------- PRIVACY VAULT ---------- */
+  .vault {
+    margin-top: 32px;
+    position: relative;
+    border-radius: 22px;
+    background: linear-gradient(180deg, #141a16 0%, #0f120f 100%);
+    border: 0.5px solid rgba(143, 217, 168, 0.20);
+    box-shadow: 0 0 80px rgba(143, 217, 168, 0.07), inset 0 1px 0 rgba(245, 239, 230, 0.04);
+    padding: 28px 28px 24px;
+    overflow: hidden;
+  }
+  .vault::before {
+    content: "";
+    position: absolute;
+    left: 50%; top: -42%;
+    width: 440px; height: 440px;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, rgba(143, 217, 168, 0.16) 0%, transparent 62%);
+    pointer-events: none;
+  }
+  .vault-head {
+    position: relative;
+    display: flex; align-items: center; gap: 13px;
+    margin-bottom: 24px;
+  }
+  .vault-badge {
+    flex-shrink: 0;
+    width: 38px; height: 38px; border-radius: 12px;
+    background: rgba(143, 217, 168, 0.12);
+    border: 0.5px solid rgba(143, 217, 168, 0.35);
+    box-shadow: 0 0 22px rgba(143, 217, 168, 0.22);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .vault-badge svg { width: 18px; height: 18px; stroke: var(--mint); fill: none; }
+  .vault-head .vh-text { display: flex; flex-direction: column; gap: 2px; }
+  .vault-head .vh-title {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--mint);
+  }
+  .vault-head .vh-sub { font-size: 13px; color: var(--ink-mute); }
+  .vault-grid {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
   }
-  .privacy-strip .cell {
-    padding: 18px 0;
-    border-top: 1px solid rgba(245, 239, 230, 0.06);
+  .vault-cell {
+    padding: 4px 22px;
+    border-left: 0.5px solid rgba(245, 239, 230, 0.07);
   }
-  .privacy-strip .cell .label {
-    font-family: var(--mono);
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--ink-dim);
-    margin-bottom: 6px;
+  .vault-cell:first-child { padding-left: 0; border-left: none; }
+  .vault-cell:last-child { padding-right: 0; }
+  .vault-cell .vc-label {
+    display: flex; align-items: center; gap: 7px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--mint);
+    margin-bottom: 9px;
   }
-  .privacy-strip .cell .val { font-size: 15px; color: var(--ink); }
+  .vault-cell .vc-label::before {
+    content: ""; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--mint); box-shadow: 0 0 7px var(--mint);
+  }
+  .vault-cell .vc-body { font-size: 14px; line-height: 1.55; color: var(--ink); }
+  .vault-cell .vc-body strong { color: var(--cream); font-weight: 500; }
+  .vault-foot {
+    position: relative;
+    margin-top: 24px; padding-top: 22px;
+    border-top: 0.5px solid rgba(245, 239, 230, 0.07);
+    font-family: var(--serif); font-style: italic;
+    font-size: 19px; line-height: 1.4; color: var(--cream);
+  }
 
   /* ---------- FOOTER ---------- */
   footer {
@@ -594,12 +644,18 @@
     .orb-wrap { --orb-size: 170px; margin-bottom: 44px; }
     section.s { padding: 64px 0; }
     .contrast .row { grid-template-columns: 1fr; gap: 12px; }
-    .privacy-strip { grid-template-columns: 1fr; }
-    .privacy-strip .cell { border-top: 1px solid rgba(245, 239, 230, 0.06); }
+    .vault-grid { grid-template-columns: 1fr; }
+    .vault-cell {
+      padding: 16px 0;
+      border-left: none;
+      border-top: 0.5px solid rgba(245, 239, 230, 0.07);
+    }
+    .vault-cell:first-child { border-top: none; padding-top: 0; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .orb-ambient, .orb-body, .orb-ring, .orb-bar { animation: none; }
+    .map-svg line.flow, .map-head .live::before { animation: none; }
   }
 
   /* ===========================================================
@@ -860,77 +916,106 @@
   }
 
   /* ===========================================================
-     GRAPH (Concept E) — inside "The wedge" section
+     MAP (the wedge) — one thought, four threads
      =========================================================== */
-  .graph {
-    margin: 36px 0 8px;
+  .map {
+    margin: 40px 0 0;
     position: relative;
-    height: 460px;
     border-radius: 22px;
-    background: radial-gradient(circle at 50% 50%, rgba(255,138,91,0.06) 0%, transparent 70%);
-    border: 0.5px solid rgba(245,239,230,0.06);
+    background:
+      radial-gradient(circle at 50% 46%, rgba(255,138,91,0.10) 0%, transparent 60%),
+      linear-gradient(180deg, #1b1418 0%, #150f12 100%);
+    border: 0.5px solid rgba(245,239,230,0.08);
+    box-shadow: inset 0 1px 0 rgba(245,239,230,0.04);
+    padding: 24px 24px 22px;
     overflow: hidden;
   }
-  .graph-svg {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
+  .map-head {
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--ink-dim);
+    margin-bottom: 6px;
   }
-  .graph-svg line { stroke: rgba(245,239,230,0.16); stroke-width: 1; stroke-dasharray: 3 3; }
-  .graph-center {
-    position: absolute;
-    left: 50%; top: 50%;
-    transform: translate(-50%,-50%);
-    width: 116px; height: 116px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, #fff6ec 0%, #ff8a5b 42%, #b8492a 100%);
-    box-shadow: 0 0 0 1px rgba(255,246,236,0.06), 0 0 60px rgba(255,138,91,0.45);
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--serif); font-style: italic;
-    color: var(--cream); font-size: 13px;
-    text-align: center; padding: 14px;
-    line-height: 1.15;
+  .map-head .live { color: var(--coral); display: inline-flex; align-items: center; gap: 7px; }
+  .map-head .live::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--coral); box-shadow: 0 0 8px var(--coral);
+    animation: map-blink 2.4s ease-in-out infinite;
   }
-  .graph-node {
-    position: absolute;
-    display: flex; flex-direction: column;
-    align-items: center; gap: 5px;
+  @keyframes map-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+  @keyframes map-flow { to { stroke-dashoffset: -20; } }
+
+  .map-stage { position: relative; height: 400px; }
+  .map-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .map-svg line { stroke: rgba(245,239,230,0.16); stroke-width: 1; }
+  .map-svg line.flow {
+    stroke: rgba(255,138,91,0.32);
+    stroke-dasharray: 3 7;
+    animation: map-flow 1.4s linear infinite;
+  }
+
+  .map-center {
+    position: absolute; left: 50%; top: 50%;
     transform: translate(-50%, -50%);
-    z-index: 2;
-  }
-  .graph-node .dot {
-    width: 36px; height: 36px;
+    width: 152px; height: 152px;
     border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff6ec 0%, #ff8a5b 44%, #b8492a 100%);
+    box-shadow: 0 0 0 1px rgba(255,246,236,0.10), 0 0 70px rgba(255,138,91,0.45);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 16px; z-index: 3;
+  }
+  .map-center .cap-eyebrow {
+    font-family: var(--mono); font-size: 8px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: rgba(26,13,5,0.62); margin-bottom: 6px;
+  }
+  .map-center .cap-text {
+    font-family: var(--serif); font-style: italic;
+    color: #2a1206; font-size: 15px; line-height: 1.2;
+  }
+
+  .map-node { position: absolute; transform: translate(-50%, -50%); z-index: 2; }
+  .map-node .dot {
+    width: 44px; height: 44px; border-radius: 50%;
     background: var(--surface-2);
-    border: 0.5px solid rgba(245,239,230,0.16);
-    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 0 0.5px rgba(245,239,230,0.16);
+  }
+  .map-node.coral  .dot { background: radial-gradient(circle at 35% 30%, #ffd9c2 0%, #ff8a5b 46%, #b8492a 100%); box-shadow: 0 0 26px rgba(255,138,91,0.40); }
+  .map-node.lav    .dot { background: radial-gradient(circle at 35% 30%, #efe2ff 0%, #c89cff 46%, #7a52b0 100%); box-shadow: 0 0 26px rgba(200,156,255,0.36); }
+  .map-node.mint   .dot { background: radial-gradient(circle at 35% 30%, #d9f5e2 0%, #8fd9a8 46%, #3e8a5c 100%); box-shadow: 0 0 26px rgba(143,217,168,0.32); }
+  .map-node.butter .dot { background: radial-gradient(circle at 35% 30%, #fff0c2 0%, #ffd166 46%, #b8902a 100%); box-shadow: 0 0 26px rgba(255,209,102,0.30); }
+
+  .map-node .stack {
+    position: absolute; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 5px;
+    white-space: nowrap;
+  }
+  .map-node.up .stack   { bottom: calc(100% + 11px); }
+  .map-node.down .stack { top: calc(100% + 11px); }
+  .map-node .label {
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--ink-dim);
+  }
+  .map-node .val {
+    font-family: var(--serif); font-style: italic;
+    color: var(--cream); font-size: 18px; line-height: 1;
+  }
+  .map-node .count {
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.06em;
+    padding: 3px 9px; border-radius: 999px;
     color: var(--ink-mute);
-    font-size: 14px;
+    background: rgba(245,239,230,0.05);
+    border: 0.5px solid rgba(245,239,230,0.10);
   }
-  .graph-node.coral  .dot { background: rgba(255,138,91,0.16); border-color: rgba(255,138,91,0.4); color: var(--coral); box-shadow: 0 0 22px rgba(255,138,91,0.32); }
-  .graph-node.lav    .dot { background: rgba(200,156,255,0.14); border-color: rgba(200,156,255,0.4); color: var(--lavender); box-shadow: 0 0 22px rgba(200,156,255,0.32); }
-  .graph-node.mint   .dot { background: rgba(143,217,168,0.14); border-color: rgba(143,217,168,0.4); color: var(--mint); }
-  .graph-node.butter .dot { background: rgba(255,209,102,0.14); border-color: rgba(255,209,102,0.4); color: var(--butter); }
-  .graph-node .label {
-    font-family: var(--mono); font-size: 9px;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--ink);
-    white-space: nowrap;
-  }
-  .graph-node .sub {
-    font-size: 10px; color: var(--ink-mute);
-    font-family: var(--sans);
-    white-space: nowrap;
-  }
-  .graph-caption {
+  .map-node.coral  .count { color: var(--coral);  border-color: rgba(255,138,91,0.30);  background: rgba(255,138,91,0.08); }
+  .map-node.mint   .count { color: var(--mint);   border-color: rgba(143,217,168,0.30); background: rgba(143,217,168,0.06); }
+  .map-node.butter .count { color: var(--butter); border-color: rgba(255,209,102,0.28); background: rgba(255,209,102,0.05); }
+
+  .map-caption {
     text-align: center;
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-dim);
-    margin-top: 18px;
+    font-size: 14px; color: var(--ink-mute);
+    margin-top: 24px;
   }
+  .map-caption strong { color: var(--coral); font-weight: 500; }
 
   /* ===========================================================
      MEMORY HERO (Concept D) — section before waitlist
@@ -995,9 +1080,13 @@
   @media (max-width: 560px) {
     .hero-phones .phone { --phone-w: 230px; --phone-h: 480px; }
     .mem-hero .phone-wrap .phone { --phone-w: 240px; --phone-h: 500px; }
-    .graph { height: 380px; }
-    .graph-node .sub { display: none; }
-    .graph-center { width: 92px; height: 92px; font-size: 11px; padding: 10px; }
+    .map { padding: 20px 16px 18px; }
+    .map-stage { height: 330px; }
+    .map-center { width: 116px; height: 116px; padding: 12px; }
+    .map-center .cap-text { font-size: 12px; }
+    .map-node .dot { width: 38px; height: 38px; }
+    .map-node .val { font-size: 15px; }
+    .map-node .count { display: none; }
   }
 </style>
 </head>
@@ -1214,56 +1303,60 @@
       </div>
     </div>
 
-    <div class="graph" role="figure" aria-label="One captured thought connected to seven context threads">
-      <svg class="graph-svg" viewBox="0 0 600 460" preserveAspectRatio="none">
-        <line x1="300" y1="230" x2="90"  y2="70" />
-        <line x1="300" y1="230" x2="510" y2="78" />
-        <line x1="300" y1="230" x2="540" y2="230" />
-        <line x1="300" y1="230" x2="510" y2="390" />
-        <line x1="300" y1="230" x2="90"  y2="390" />
-        <line x1="300" y1="230" x2="60"  y2="230" />
-        <line x1="300" y1="230" x2="300" y2="430" />
-      </svg>
+    <div class="map" role="figure" aria-label="One captured thought, linked to who it was about, where you were, when it happens, and what it touches">
+      <div class="map-head">
+        <span>The map · one thought</span>
+        <span class="live">live graph</span>
+      </div>
 
-      <div class="graph-center">"Send Lukas the revised pricing."</div>
+      <div class="map-stage">
+        <svg class="map-svg" viewBox="0 0 600 400" preserveAspectRatio="none" aria-hidden="true">
+          <line class="flow" x1="300" y1="200" x2="126" y2="108" />
+          <line class="flow" x1="300" y1="200" x2="474" y2="108" />
+          <line class="flow" x1="300" y1="200" x2="126" y2="292" />
+          <line class="flow" x1="300" y1="200" x2="474" y2="292" />
+        </svg>
 
-      <div class="graph-node coral"  style="left: 15%; top: 15%;">
-        <div class="dot">👤</div>
-        <div class="label">Who</div>
-        <div class="sub">Lukas Mendes</div>
+        <div class="map-center">
+          <span class="cap-eyebrow">You said</span>
+          <span class="cap-text">"Send Lukas the revised pricing."</span>
+        </div>
+
+        <div class="map-node coral up" style="left: 21%; top: 27%;">
+          <div class="dot"></div>
+          <div class="stack">
+            <span class="label">Who</span>
+            <span class="val">Lukas Mendes</span>
+            <span class="count">+5 linked</span>
+          </div>
+        </div>
+        <div class="map-node lav up" style="left: 79%; top: 27%;">
+          <div class="dot"></div>
+          <div class="stack">
+            <span class="label">When</span>
+            <span class="val">Fri · 9am</span>
+          </div>
+        </div>
+        <div class="map-node mint down" style="left: 21%; top: 73%;">
+          <div class="dot"></div>
+          <div class="stack">
+            <span class="label">Where</span>
+            <span class="val">The office</span>
+            <span class="count">+12 linked</span>
+          </div>
+        </div>
+        <div class="map-node butter down" style="left: 79%; top: 73%;">
+          <div class="dot"></div>
+          <div class="stack">
+            <span class="label">What</span>
+            <span class="val">Pricing</span>
+            <span class="count">+4 linked</span>
+          </div>
+        </div>
       </div>
-      <div class="graph-node lav"    style="left: 85%; top: 17%;">
-        <div class="dot">📅</div>
-        <div class="label">When</div>
-        <div class="sub">Fri · 9 am</div>
-      </div>
-      <div class="graph-node mint"   style="left: 90%; top: 50%;">
-        <div class="dot">📍</div>
-        <div class="label">Where</div>
-        <div class="sub">Office</div>
-      </div>
-      <div class="graph-node butter" style="left: 85%; top: 84%;">
-        <div class="dot">🏷</div>
-        <div class="label">Topic</div>
-        <div class="sub">Pricing</div>
-      </div>
-      <div class="graph-node coral"  style="left: 15%; top: 84%;">
-        <div class="dot">📂</div>
-        <div class="label">Project</div>
-        <div class="sub">Q3 Sales</div>
-      </div>
-      <div class="graph-node"        style="left: 10%; top: 50%;">
-        <div class="dot">🕰</div>
-        <div class="label">Captured</div>
-        <div class="sub">Walking · 6:43pm</div>
-      </div>
-      <div class="graph-node lav"    style="left: 50%; top: 93%;">
-        <div class="dot">💭</div>
-        <div class="label">Related</div>
-        <div class="sub">3 other thoughts</div>
-      </div>
+
+      <div class="map-caption">Pull any thread and <strong>every thought you ever had on it comes with.</strong></div>
     </div>
-    <div class="graph-caption">Pull any thread — every thought you ever had on it comes with.</div>
   </section>
 
   <section class="s">
@@ -1277,6 +1370,7 @@
     </p>
   </section>
 
+  <!-- Hidden for now — keeping the page crisp. Restore when ready.
   <section class="s">
     <div class="eyebrow section-eyebrow">Who it's for</div>
     <h2>If your head moves faster than your hands.</h2>
@@ -1288,25 +1382,46 @@
       <li>Late-night idea havers who promise themselves they will remember in the morning.</li>
     </ul>
   </section>
+  -->
 
   <section class="s">
     <div class="eyebrow section-eyebrow">Stays on your phone</div>
     <h2>Private by default, not by promise.</h2>
     <p>
-      Daisy runs on the iPhone's own intelligence. Speech, classification, search, embeddings, all on device. No servers between you and your thoughts. No analytics. No telemetry. If you ever want a cloud assist (for harder languages, older devices), you opt in, you bring your own key, and you can turn it off at any time.
+      Daisy runs on your iPhone's own intelligence. Speech, classification, search, embeddings, all of it happens on the device in your hand. Nothing sits on a server waiting to be breached, sold, or handed over. Want a cloud assist for a harder language or an older phone? You opt in, you bring your own key, and you switch it off whenever you like.
     </p>
-    <div class="privacy-strip">
-      <div class="cell">
-        <div class="label">Audio</div>
-        <div class="val">Never leaves the device. Never written to disk. Transcript only.</div>
+
+    <div class="vault">
+      <div class="vault-head">
+        <div class="vault-badge">
+          <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="5" y="11" width="14" height="9" rx="2.2" />
+            <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+          </svg>
+        </div>
+        <div class="vh-text">
+          <span class="vh-title">Everything stays on your iPhone</span>
+          <span class="vh-sub">No servers between you and your thoughts.</span>
+        </div>
       </div>
-      <div class="cell">
-        <div class="label">Memory</div>
-        <div class="val">Stored locally on your phone. No cloud sync at launch. The data is yours, and yours to export.</div>
+
+      <div class="vault-grid">
+        <div class="vault-cell">
+          <div class="vc-label">Audio</div>
+          <div class="vc-body">Your voice never leaves the device and is never written to disk. Daisy keeps the <strong>words</strong>, not the recording.</div>
+        </div>
+        <div class="vault-cell">
+          <div class="vc-label">Memory</div>
+          <div class="vc-body">Every thought Daisy holds lives on your phone. No cloud sync at launch. The data is <strong>yours to export</strong>, and yours to delete.</div>
+        </div>
+        <div class="vault-cell">
+          <div class="vc-label">Telemetry</div>
+          <div class="vc-body">None. No analytics, no tracking. If that ever changes, <strong>you see it before we ship it.</strong></div>
+        </div>
       </div>
-      <div class="cell">
-        <div class="label">Telemetry</div>
-        <div class="val">None at launch. If we ever add it, you will see it before we do.</div>
+
+      <div class="vault-foot">
+        Your inner voice is the most private thing you have. Daisy is built to keep it that way.
       </div>
     </div>
   </section>
