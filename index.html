@@ -142,7 +142,10 @@
   }
 
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    overflow-x: clip;
+  }
   body {
     margin: 0;
     background: var(--bg);
@@ -152,7 +155,7 @@
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   ::selection { background: rgba(255,138,91,0.32); color: var(--cream); }
@@ -177,6 +180,7 @@
     justify-content: center;
     text-align: center;
     padding: 120px 24px 96px;
+    overflow: hidden;
   }
 
   /* ---------- ORB (speaking state, ported from App/Features/Orb/OrbView.swift) ---------- */
