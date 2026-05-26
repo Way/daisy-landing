@@ -601,27 +601,515 @@
   @media (prefers-reduced-motion: reduce) {
     .orb-ambient, .orb-body, .orb-ring, .orb-bar { animation: none; }
   }
+
+  /* ===========================================================
+     HERO PHONES (Concept A) — replaces the standalone orb
+     =========================================================== */
+  .hero-phones {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 56px;
+    width: 100%;
+    max-width: 920px;
+  }
+  .hero-glow {
+    position: absolute;
+    width: 680px; height: 680px;
+    left: 50%; top: 50%;
+    transform: translate(-50%,-50%);
+    background: radial-gradient(circle, rgba(255,138,91,0.22) 0%, transparent 60%);
+    filter: blur(40px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .phone {
+    --phone-w: 240px;
+    --phone-h: 500px;
+    width: var(--phone-w);
+    height: var(--phone-h);
+    background: #050405;
+    border-radius: 38px;
+    padding: 7px;
+    position: relative;
+    z-index: 1;
+    box-shadow:
+      0 0 0 1.5px #1a161b,
+      0 0 0 2px #2a232a,
+      0 30px 80px rgba(0,0,0,0.65),
+      0 12px 36px rgba(0,0,0,0.45);
+  }
+  .phone-screen {
+    width: 100%; height: 100%;
+    background: var(--bg);
+    border-radius: 32px;
+    overflow: hidden;
+    position: relative;
+    color: var(--ink);
+    text-align: left;
+  }
+  .phone-island {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 22px;
+    background: #050405;
+    border-radius: 999px;
+    z-index: 10;
+  }
+  .phone-statusbar {
+    position: absolute;
+    top: 11px;
+    left: 0; right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-weight: 600;
+    font-size: 11px;
+    color: var(--ink);
+    z-index: 11;
+    pointer-events: none;
+  }
+  .phone-statusbar .right { display: flex; gap: 5px; align-items: center; font-size: 10px; opacity: 0.92; }
+  .hero-phone-left  { transform: rotate(-3deg) translateY(20px); }
+  .hero-phone-mid   { transform: rotate(1.2deg) translateY(-24px); z-index: 2; }
+  .hero-phone-right { transform: rotate(4deg) translateY(28px); }
+
+  /* in-phone screen primitives */
+  .scr {
+    padding: 46px 14px 14px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+  }
+  .scr-topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.16em;
+    color: var(--ink-dim); text-transform: uppercase;
+  }
+  .scr-topbar .topleft { display: flex; align-items: center; gap: 7px; }
+  .scr-topbar .micro-orb {
+    width: 14px; height: 14px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff6ec 0%, #ff8a5b 40%, #b8492a 100%);
+    box-shadow: 0 0 8px rgba(255,138,91,0.4);
+  }
+  .scr-topbar .cog {
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 0.5px solid rgba(245,239,230,0.12);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink-mute); font-size: 10px;
+  }
+  .scr .greet {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--cream);
+    font-size: 20px;
+    line-height: 1.1;
+    letter-spacing: -0.4px;
+    margin: 8px 0 2px;
+  }
+  .scr .subhead {
+    color: var(--ink-mute);
+    font-size: 10px;
+    line-height: 1.5;
+  }
+  .scr .waiting-eyebrow {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-top: 12px;
+    font-family: var(--mono); font-size: 8px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--ink-dim);
+  }
+  .scr .waiting-eyebrow .all { color: var(--coral); }
+  .peek-card {
+    background: var(--surface);
+    border: 0.5px solid rgba(245,239,230,0.06);
+    border-radius: 14px;
+    padding: 2px 10px;
+  }
+  .item-row {
+    position: relative;
+    padding: 8px 0 8px 10px;
+    border-bottom: 0.5px solid rgba(245,239,230,0.08);
+  }
+  .item-row:last-child { border-bottom: none; }
+  .item-row .stripe {
+    position: absolute; left: 0; top: 4px; bottom: 4px;
+    width: 3px; border-radius: 999px;
+  }
+  .item-row.reminder .stripe { background: rgba(255,138,91,0.55); }
+  .item-row.memory   .stripe { background: rgba(200,156,255,0.55); }
+  .item-row.idea     .stripe { background: rgba(255,209,102,0.55); }
+  .item-row.note     .stripe { background: rgba(143,217,168,0.55); }
+  .item-row .meta {
+    display: flex; gap: 6px; align-items: center; margin-bottom: 2px;
+  }
+  .kind-chip {
+    font-family: var(--mono); font-size: 8px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 2px 6px; border-radius: 999px;
+    white-space: nowrap;
+  }
+  .kind-chip.reminder { color: var(--coral); background: rgba(255,138,91,0.13); border: 0.5px solid rgba(255,138,91,0.22); }
+  .kind-chip.memory   { color: var(--lavender); background: rgba(200,156,255,0.10); border: 0.5px solid rgba(200,156,255,0.22); }
+  .kind-chip.idea     { color: var(--butter); background: rgba(255,209,102,0.10); border: 0.5px solid rgba(255,209,102,0.22); }
+  .kind-chip.note     { color: var(--mint); background: rgba(143,217,168,0.10); border: 0.5px solid rgba(143,217,168,0.22); }
+  .item-row .trigger {
+    font-family: var(--mono); font-size: 8px;
+    letter-spacing: 0.1em; color: var(--ink-dim); text-transform: uppercase;
+  }
+  .item-row .body { color: var(--ink); font-size: 10.5px; line-height: 1.35; }
+
+  /* Recording screen (middle phone) */
+  .scr.recording {
+    align-items: center; justify-content: center; gap: 14px;
+  }
+  .scr.recording .timer {
+    font-family: var(--mono); font-size: 9px;
+    letter-spacing: 0.2em; color: var(--coral);
+    text-transform: uppercase;
+  }
+  .scr.recording .timer::before { content: "● "; color: var(--coral); }
+  .scr.recording .transcript {
+    font-family: var(--serif); font-style: italic;
+    color: var(--cream); font-size: 15px;
+    text-align: center; padding: 0 12px;
+    line-height: 1.3;
+  }
+  .scr.recording .release-hint {
+    font-family: var(--sans);
+    color: var(--ink-mute);
+    font-size: 10px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: rgba(255,246,236,0.05);
+    border: 0.5px solid rgba(245,239,230,0.12);
+  }
+  /* shrink in-phone orb spacing */
+  .orb-wrap.in-phone { margin-bottom: 0; }
+
+  /* Memory pop screen (right phone + section D) */
+  .scr.memory {
+    background: linear-gradient(180deg, rgba(200,156,255,0.16) 0%, var(--bg) 60%);
+  }
+  .scr.memory .mem-top {
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono); font-size: 8px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--lavender);
+  }
+  .scr.memory .mem-top .close { color: var(--ink-mute); }
+  .scr.memory .precall {
+    font-family: var(--serif); font-style: italic;
+    color: var(--lavender); font-size: 12px;
+    line-height: 1.35; margin: 10px 0 8px;
+  }
+  .scr.memory .mcard {
+    background: var(--surface);
+    border: 0.5px solid rgba(200,156,255,0.3);
+    border-radius: 16px;
+    padding: 12px;
+    box-shadow: 0 0 30px rgba(200,156,255,0.18);
+  }
+  .scr.memory .mcard .met {
+    font-family: var(--mono); font-size: 8px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+  .scr.memory .mcard .name {
+    font-family: var(--serif);
+    color: var(--cream); font-size: 26px;
+    line-height: 1; letter-spacing: -0.5px;
+    margin: 3px 0 2px;
+  }
+  .scr.memory .mcard .sub {
+    color: var(--ink-mute); font-size: 9px; margin-bottom: 8px;
+  }
+  .scr.memory .mcard .mrow {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 6px 0; gap: 8px;
+    border-top: 0.5px solid rgba(245,239,230,0.06);
+  }
+  .scr.memory .mcard .mrow:first-of-type { border-top: none; padding-top: 2px; }
+  .scr.memory .mcard .mrow .k {
+    font-size: 9px; color: var(--ink-mute);
+    flex-shrink: 0; min-width: 68px;
+  }
+  .scr.memory .mcard .mrow .v {
+    font-size: 9px; color: var(--ink); text-align: right;
+  }
+  .scr.memory .opener {
+    margin-top: 8px;
+    border: 1px dashed rgba(200,156,255,0.4);
+    border-radius: 10px;
+    padding: 9px;
+    font-family: var(--serif); font-style: italic;
+    color: var(--cream); font-size: 11px;
+    line-height: 1.35;
+  }
+  .scr.memory .opener .e {
+    font-family: var(--mono); font-style: normal;
+    font-size: 7px; letter-spacing: 0.18em;
+    color: var(--lavender); text-transform: uppercase;
+    display: block; margin-bottom: 4px;
+  }
+
+  /* ===========================================================
+     GRAPH (Concept E) — inside "The wedge" section
+     =========================================================== */
+  .graph {
+    margin: 36px 0 8px;
+    position: relative;
+    height: 460px;
+    border-radius: 22px;
+    background: radial-gradient(circle at 50% 50%, rgba(255,138,91,0.06) 0%, transparent 70%);
+    border: 0.5px solid rgba(245,239,230,0.06);
+    overflow: hidden;
+  }
+  .graph-svg {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+  }
+  .graph-svg line { stroke: rgba(245,239,230,0.16); stroke-width: 1; stroke-dasharray: 3 3; }
+  .graph-center {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%,-50%);
+    width: 116px; height: 116px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff6ec 0%, #ff8a5b 42%, #b8492a 100%);
+    box-shadow: 0 0 0 1px rgba(255,246,236,0.06), 0 0 60px rgba(255,138,91,0.45);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-style: italic;
+    color: var(--cream); font-size: 13px;
+    text-align: center; padding: 14px;
+    line-height: 1.15;
+  }
+  .graph-node {
+    position: absolute;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 5px;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+  .graph-node .dot {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--surface-2);
+    border: 0.5px solid rgba(245,239,230,0.16);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink-mute);
+    font-size: 14px;
+  }
+  .graph-node.coral  .dot { background: rgba(255,138,91,0.16); border-color: rgba(255,138,91,0.4); color: var(--coral); box-shadow: 0 0 22px rgba(255,138,91,0.32); }
+  .graph-node.lav    .dot { background: rgba(200,156,255,0.14); border-color: rgba(200,156,255,0.4); color: var(--lavender); box-shadow: 0 0 22px rgba(200,156,255,0.32); }
+  .graph-node.mint   .dot { background: rgba(143,217,168,0.14); border-color: rgba(143,217,168,0.4); color: var(--mint); }
+  .graph-node.butter .dot { background: rgba(255,209,102,0.14); border-color: rgba(255,209,102,0.4); color: var(--butter); }
+  .graph-node .label {
+    font-family: var(--mono); font-size: 9px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .graph-node .sub {
+    font-size: 10px; color: var(--ink-mute);
+    font-family: var(--sans);
+    white-space: nowrap;
+  }
+  .graph-caption {
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-top: 18px;
+  }
+
+  /* ===========================================================
+     MEMORY HERO (Concept D) — section before waitlist
+     =========================================================== */
+  .mem-hero {
+    margin: 32px 0 8px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 36px;
+    align-items: center;
+  }
+  .mem-hero .copy h3 {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(26px, 3.4vw, 34px);
+    line-height: 1.1;
+    color: var(--cream);
+    margin: 0 0 14px;
+    letter-spacing: -0.01em;
+  }
+  .mem-hero .copy h3 em { color: var(--lavender); font-style: italic; }
+  .mem-hero .copy p {
+    color: var(--ink-mute); font-size: 15px; line-height: 1.6;
+    margin: 0 0 12px;
+  }
+  .mem-hero .copy p strong { color: var(--ink); font-weight: 500; }
+  .mem-hero .copy .triggers {
+    margin-top: 18px;
+    font-family: var(--mono); font-size: 10px;
+    color: var(--ink-dim); letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .mem-hero .phone-wrap {
+    position: relative;
+    flex-shrink: 0;
+  }
+  .mem-hero .phone-wrap::before {
+    content: "";
+    position: absolute;
+    width: 460px; height: 460px;
+    left: 50%; top: 50%;
+    transform: translate(-50%,-50%);
+    background: radial-gradient(circle, rgba(200,156,255,0.22) 0%, transparent 60%);
+    filter: blur(36px);
+    z-index: 0;
+  }
+  .mem-hero .phone-wrap .phone {
+    --phone-w: 270px;
+    --phone-h: 560px;
+    z-index: 1;
+  }
+
+  /* Responsive overrides for the new sections */
+  @media (max-width: 880px) {
+    .hero-phone-left, .hero-phone-right { display: none; }
+    .hero-phone-mid { transform: rotate(0); }
+    .hero-phones { margin-bottom: 40px; }
+    .mem-hero { grid-template-columns: 1fr; gap: 28px; justify-items: center; text-align: left; }
+    .mem-hero .copy { max-width: 100%; }
+  }
+  @media (max-width: 560px) {
+    .hero-phones .phone { --phone-w: 230px; --phone-h: 480px; }
+    .mem-hero .phone-wrap .phone { --phone-w: 240px; --phone-h: 500px; }
+    .graph { height: 380px; }
+    .graph-node .sub { display: none; }
+    .graph-center { width: 92px; height: 92px; font-size: 11px; padding: 10px; }
+  }
 </style>
 </head>
 <body>
 
 <section class="hero">
-  <div class="orb-wrap" aria-hidden="true">
-    <div class="orb-ambient"></div>
-    <div class="orb-rings">
-      <div class="orb-ring"></div>
-      <div class="orb-ring"></div>
-      <div class="orb-ring"></div>
+  <div class="hero-phones" aria-hidden="true">
+    <div class="hero-glow"></div>
+
+    <!-- Left phone: Home -->
+    <div class="phone hero-phone-left">
+      <div class="phone-screen">
+        <div class="phone-island"></div>
+        <div class="phone-statusbar"><span>9:41</span><span class="right">5G ▮▮▮</span></div>
+        <div class="scr">
+          <div class="scr-topbar">
+            <div class="topleft">
+              <div class="micro-orb"></div>
+              <span>Daisy · listening</span>
+            </div>
+            <div class="cog">⚙</div>
+          </div>
+          <div class="greet">Morning, Alex.</div>
+          <div class="subhead">Three things waiting.</div>
+          <div class="waiting-eyebrow">
+            <span>Waiting for you</span>
+            <span class="all">All →</span>
+          </div>
+          <div class="peek-card">
+            <div class="item-row reminder">
+              <div class="stripe"></div>
+              <div class="meta">
+                <span class="kind-chip reminder">Reminder</span>
+                <span class="trigger">Fri · 9am</span>
+              </div>
+              <div class="body">Send Lukas the revised pricing.</div>
+            </div>
+            <div class="item-row memory">
+              <div class="stripe"></div>
+              <div class="meta">
+                <span class="kind-chip memory">Memory</span>
+                <span class="trigger">Pre-call · 4 min</span>
+              </div>
+              <div class="body">Lina · daughter Mira (3).</div>
+            </div>
+            <div class="item-row idea">
+              <div class="stripe"></div>
+              <div class="meta"><span class="kind-chip idea">Idea</span></div>
+              <div class="body">Notion AI as docs replacement.</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="orb-body"></div>
-    <div class="orb-bars">
-      <span class="orb-bar"></span>
-      <span class="orb-bar"></span>
-      <span class="orb-bar"></span>
-      <span class="orb-bar"></span>
-      <span class="orb-bar"></span>
-      <span class="orb-bar"></span>
-      <span class="orb-bar"></span>
+
+    <!-- Middle phone: Listening (the orb, full-bleed) -->
+    <div class="phone hero-phone-mid">
+      <div class="phone-screen">
+        <div class="phone-island"></div>
+        <div class="phone-statusbar"><span>9:41</span><span class="right">5G ▮▮▮</span></div>
+        <div class="scr recording">
+          <div class="timer">Listening · 0:03</div>
+          <div class="orb-wrap in-phone" style="--orb-size: 170px">
+            <div class="orb-ambient"></div>
+            <div class="orb-rings">
+              <div class="orb-ring"></div>
+              <div class="orb-ring"></div>
+              <div class="orb-ring"></div>
+            </div>
+            <div class="orb-body"></div>
+            <div class="orb-bars">
+              <span class="orb-bar"></span>
+              <span class="orb-bar"></span>
+              <span class="orb-bar"></span>
+              <span class="orb-bar"></span>
+              <span class="orb-bar"></span>
+              <span class="orb-bar"></span>
+              <span class="orb-bar"></span>
+            </div>
+          </div>
+          <div class="transcript">"Tell Lukas the proposal needs the revised pricing…"</div>
+          <div class="release-hint">Release ↓ to save</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right phone: Memory pop -->
+    <div class="phone hero-phone-right">
+      <div class="phone-screen">
+        <div class="phone-island"></div>
+        <div class="phone-statusbar"><span>2:56</span><span class="right">5G ▮▮▮</span></div>
+        <div class="scr memory">
+          <div class="mem-top">
+            <span>Memory · pre-call</span>
+            <span class="close">Close</span>
+          </div>
+          <div class="precall">Before your call with Lina in 4 min — here's what you know.</div>
+          <div class="mcard">
+            <div class="met">Met 10 months ago</div>
+            <div class="name">Lina</div>
+            <div class="sub">AI founder · Web Summit · Lisbon</div>
+            <div class="mrow"><span class="k">👋 How met</span><span class="v">Web Summit '24</span></div>
+            <div class="mrow"><span class="k">🏢 Building</span><span class="v">Agentic ops tools</span></div>
+            <div class="mrow"><span class="k">👶 Family</span><span class="v">Daughter Mira (3)</span></div>
+            <div class="mrow"><span class="k">☕ Last touch</span><span class="v">Berlin · 3w ago</span></div>
+          </div>
+          <div class="opener">
+            <span class="e">Suggested opener</span>
+            "How's Mira doing — she must be running circles around you by now."
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -725,6 +1213,57 @@
         </div>
       </div>
     </div>
+
+    <div class="graph" role="figure" aria-label="One captured thought connected to seven context threads">
+      <svg class="graph-svg" viewBox="0 0 600 460" preserveAspectRatio="none">
+        <line x1="300" y1="230" x2="90"  y2="70" />
+        <line x1="300" y1="230" x2="510" y2="78" />
+        <line x1="300" y1="230" x2="540" y2="230" />
+        <line x1="300" y1="230" x2="510" y2="390" />
+        <line x1="300" y1="230" x2="90"  y2="390" />
+        <line x1="300" y1="230" x2="60"  y2="230" />
+        <line x1="300" y1="230" x2="300" y2="430" />
+      </svg>
+
+      <div class="graph-center">"Send Lukas the revised pricing."</div>
+
+      <div class="graph-node coral"  style="left: 15%; top: 15%;">
+        <div class="dot">👤</div>
+        <div class="label">Who</div>
+        <div class="sub">Lukas Mendes</div>
+      </div>
+      <div class="graph-node lav"    style="left: 85%; top: 17%;">
+        <div class="dot">📅</div>
+        <div class="label">When</div>
+        <div class="sub">Fri · 9 am</div>
+      </div>
+      <div class="graph-node mint"   style="left: 90%; top: 50%;">
+        <div class="dot">📍</div>
+        <div class="label">Where</div>
+        <div class="sub">Office</div>
+      </div>
+      <div class="graph-node butter" style="left: 85%; top: 84%;">
+        <div class="dot">🏷</div>
+        <div class="label">Topic</div>
+        <div class="sub">Pricing</div>
+      </div>
+      <div class="graph-node coral"  style="left: 15%; top: 84%;">
+        <div class="dot">📂</div>
+        <div class="label">Project</div>
+        <div class="sub">Q3 Sales</div>
+      </div>
+      <div class="graph-node"        style="left: 10%; top: 50%;">
+        <div class="dot">🕰</div>
+        <div class="label">Captured</div>
+        <div class="sub">Walking · 6:43pm</div>
+      </div>
+      <div class="graph-node lav"    style="left: 50%; top: 93%;">
+        <div class="dot">💭</div>
+        <div class="label">Related</div>
+        <div class="sub">3 other thoughts</div>
+      </div>
+    </div>
+    <div class="graph-caption">Pull any thread — every thought you ever had on it comes with.</div>
   </section>
 
   <section class="s">
@@ -768,6 +1307,53 @@
       <div class="cell">
         <div class="label">Telemetry</div>
         <div class="val">None at launch. If we ever add it, you will see it before we do.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s">
+    <div class="eyebrow section-eyebrow">The headline moment</div>
+    <h2><em>The thought arrives before you remember to look.</em></h2>
+
+    <div class="mem-hero">
+      <div class="copy">
+        <p>
+          A call lands. You met them at a conference ten months ago. You captured one detail then — their daughter's name, a thing they were building, the way they took their coffee.
+        </p>
+        <p>
+          <strong>Daisy hands it back four minutes before the call.</strong> The detail you'd never have searched for, surfacing exactly when it matters.
+        </p>
+        <div class="triggers">Triggered by · Calendar · Location · Person · Time</div>
+      </div>
+
+      <div class="phone-wrap">
+        <div class="phone" aria-hidden="true">
+          <div class="phone-screen">
+            <div class="phone-island"></div>
+            <div class="phone-statusbar"><span>2:56</span><span class="right">5G ▮▮▮</span></div>
+            <div class="scr memory">
+              <div class="mem-top">
+                <span>Memory · pre-call</span>
+                <span class="close">Close</span>
+              </div>
+              <div class="precall">Before your call with Lina in 4 min — here's what you know.</div>
+              <div class="mcard">
+                <div class="met">Met 10 months ago</div>
+                <div class="name">Lina</div>
+                <div class="sub">AI founder · Web Summit · Lisbon</div>
+                <div class="mrow"><span class="k">👋 How met</span><span class="v">Web Summit, Lisbon · Nov '24</span></div>
+                <div class="mrow"><span class="k">🏢 Company</span><span class="v">Agentic ops tools</span></div>
+                <div class="mrow"><span class="k">👶 Family</span><span class="v">Daughter Mira (3)</span></div>
+                <div class="mrow"><span class="k">☕ Talked about</span><span class="v">On-device inference</span></div>
+                <div class="mrow"><span class="k">📅 Last touch</span><span class="v">Berlin · 3w ago</span></div>
+              </div>
+              <div class="opener">
+                <span class="e">Suggested opener</span>
+                "How's Mira doing — she must be running circles around you by now."
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
